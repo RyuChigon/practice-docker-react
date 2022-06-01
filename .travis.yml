@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start Creating an Image with dockerfile"
+  - docker build -t chigony/react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true chigony/react-app npm run test -- --coverage
+
+after_success:
+  - echo "Test Success"
